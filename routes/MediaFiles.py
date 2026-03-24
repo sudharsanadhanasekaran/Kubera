@@ -5,17 +5,16 @@ MediaFiles_blueprint=Blueprint("MediaFiles_blueprint",__name__)
 def create_media():
         data=request.json
         create_user=MediaFiles(
-        id=data.get('id'),
-        user_id=data.get('user_id'),
-        vendorId=data.get('vendorId'),
-        file_name=data['file_name'],
-        file_url=data['file_url'],
-        file_title=data.get('file_title'),
-        file_type=data['file_type'],
-        
-        alt_text=data.get('alt_text'),
-        entity_type=data['entity_type'],
-        entity_id=data['entity_id'])
+            id=data.get('id'),
+            user_id=data.get('user_id'),
+            vendorId=data.get('vendorId'),
+            file_name=data['file_name'],
+            file_url=data['file_url'],
+            file_title=data.get('file_title'),
+            file_type=data['file_type'],
+            alt_text=data.get('alt_text'),
+            entity_type=data['entity_type'],
+            entity_id=data['entity_id'])
         db.session.add(create_user)
         db.session.commit()
         return jsonify({"message":"Media created successfully",

@@ -47,13 +47,15 @@ class MediaFiles(db.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'name': self.name,
-            'email': self.email,
-            'mobileNumber': self.mobile_number,
-            'role': self.role,
-            'status': self.status,
-            'vendorId': self.vendorId
+            'user_id': self.user_id,
+            'vendor_id': self.vendorId,
+            'file_name': self.file_name,
+            'file_url': self.file_url,
+            'file_title': self.file_title,
+            'file_type': self.file_type,
+            'alt_text': self.alt_text,
+            'entity_type': self.entity_type,
+            'entity_id': self.entity_id
         }
     
 
