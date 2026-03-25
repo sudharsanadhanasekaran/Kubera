@@ -5,7 +5,6 @@ MediaFiles_blueprint=Blueprint("MediaFiles_blueprint",__name__)
 def create_media():
         data=request.json
         create_user=MediaFiles(
-            id=data.get('id'),
             user_id=data.get('user_id'),
             vendorId=data.get('vendorId'),
             file_name=data['file_name'],
@@ -18,7 +17,8 @@ def create_media():
         db.session.add(create_user)
         db.session.commit()
         return jsonify({"message":"Media created successfully",
-                    "data":create_media.to_dict()})
+                           "data":create_user.to_dict()
+                           })
 #-----Get all media---
 @MediaFiles_blueprint.route('/media',methods=['GET'])
 def get_all_media():
@@ -31,9 +31,9 @@ def get_all_media():
 @MediaFiles_blueprint.route("/media/<int:id>", methods=["GET"])
 def get_media(id):
     user = MediaFiles.query.get(id)
-    if not user or user.delete_status:
-        return jsonify({"message": "User not found"})
-    return jsonify(user.dict())
+    # if not user or user.delete_status:
+    #     return jsonify({"message": "User not found"})
+    return jsonify(user.to_dict())
 #-----update media----
 @MediaFiles_blueprint.route('/media/<int:id>', methods=['PUT'])
 def update_media(id):
@@ -67,3 +67,16 @@ def delete_media(id):
         "message": "User deleted successfully",
         "delete_status": user.delete_status
     })
+    
+    '''Postman API Body data
+    {
+            "user_id":9,
+            "vendorId":107,
+            "file_name":"image9.jpg",
+            "file_url":"https://example.com/uploads/image7.jpg",
+            "file_title":"Product Image9",
+            "file_type":"image9/jpeg",
+            "alt_text":"back view of product",
+            "entity_type":"product",
+            "entity_id":19
+}'''

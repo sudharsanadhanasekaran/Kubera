@@ -12,7 +12,7 @@ def create_user():
         name=data["name"],
         email=data["email"],
         mobile_number=data["mobile_number"],
-        password=data["password"],
+        password=data["password"],  
         role=data["role"],
         status=data["status"],
         vendorId=data["vendorId"]

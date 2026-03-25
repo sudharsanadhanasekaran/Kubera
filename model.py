@@ -91,14 +91,15 @@ class PriceType(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(500), nullable=True)
-    vendor_id = db.Column(db.Integer,nullable=False)
+    vendorId = db.Column(db.Integer,nullable=False)
     
     def to_dict(self):
+        __tablename__ = "price_type"
         return {
             'id': self.id,
             'name': self.name,
             'description': self.description,
-            'vendor_id': self.vendor_id
+            'vendorId': self.vendorId
             }
 
 # -------- Currency --------

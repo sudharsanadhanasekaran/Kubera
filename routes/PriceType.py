@@ -12,19 +12,21 @@ def pricetype():
 
     db.session.add(pricetype)
     db.session.commit()
-
-    return jsonify({"message": "Pricing created successfully"})
-
-
-@PriceType_blueprint.route('/pricing', methods=['GET'])
-def fetch_all_pricing():
-    pricing_list = PriceType.query.all()
-    return jsonify([PriceType.to_dict() for pricing in pricing_list])
+    print("message:Pricing created successfully",pricetype.to_dict())
+    return jsonify(pricetype.to_dict())
 
 
-@PriceType_blueprint.route('/pricing/<int:pricing_id>', methods=['GET'])
-def fetch_pricing_by_id(pricing_id):
-    pricing = PriceType.query.get(pricing_id)
+@PriceType_blueprint.route('/pricetype', methods=['GET'])
+def get_pricing():
+    pricing_list=PriceType.query.all()
+    result = []
+    for pricing in pricing_list:
+        result.append(pricing.to_dict())
+    return jsonify(result)
+
+@PriceType_blueprint.route('/pricetype/<int:id>', methods=['GET'])
+def fetch_pricing_by_id(id):
+    pricing = PriceType.query.get(id)
 
     if not pricing:
         return jsonify({'message': 'Pricing not found'}), 404
@@ -32,9 +34,9 @@ def fetch_pricing_by_id(pricing_id):
     return jsonify(pricing.to_dict())
 
 
-@PriceType_blueprint.route('/pricing/<int:pricing_id>', methods=['PUT'])
-def update_pricing(pricing_id):
-    pricing = PriceType.query.get(pricing_id)
+@PriceType_blueprint.route('/pricetype/<int:id>', methods=['PUT'])
+def update_pricing(id):
+    pricing = PriceType.query.get(id)
 
     if not pricing:
         return jsonify({'message': 'Pricing not found'}), 404
@@ -48,13 +50,13 @@ def update_pricing(pricing_id):
 
     return jsonify({
         'message': 'Pricing updated successfully',
-        'pricing': PriceType.to_dict()
+        'pricing': pricing.to_dict()
     })
 
 
-@PriceType_blueprint.route('/pricing/delete/<int:pricing_id>', methods=['PUT'])
-def delete_pricing(pricing_id):
-    pricing = PriceType.query.get(pricing_id)
+@PriceType_blueprint.route('/pricetype/delete/<int:id>', methods=['PUT'])
+def delete_pricing(id):
+    pricing = PriceType.query.get(id)
 
     if not pricing:
         return jsonify({'message': 'Pricing not found'}), 404
